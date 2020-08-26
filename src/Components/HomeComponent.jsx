@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import PokemonThumbNail from './PokemonThumbnailComponent';
+import PokemonFilter from './PokemonFilterComponent';
 
 function Pagination({ totalPages, active, setPage }) {
   const items = [];
@@ -40,7 +41,7 @@ function Pagination({ totalPages, active, setPage }) {
   );
 }
 
-export default function Home({ totalPokemon, queryPokemons }) {
+export default function Home({ totalPokemon, queryPokemons, filterPokemons }) {
   const [page, setPage] = useState(1);
   const maxPokemonShown = 12;
   const numPages = Math.ceil(totalPokemon / maxPokemonShown);
@@ -52,6 +53,10 @@ export default function Home({ totalPokemon, queryPokemons }) {
     <div className="row">
       <h3 className="col-12">Catalogo de Pokemons</h3>
       <hr className="col-10 mx-auto" />
+      <div className="col-12">
+
+        <PokemonFilter key="searchbar" filterPokemons={filterPokemons} />
+      </div>
       <div className="col-12 d-flex justify-content-center">
         <Pagination totalPages={numPages} active={page} setPage={setPage} />
       </div>
@@ -69,4 +74,5 @@ Pagination.propTypes = {
 Home.propTypes = {
   totalPokemon: PropTypes.number.isRequired,
   queryPokemons: PropTypes.func.isRequired,
+  filterPokemons: PropTypes.func.isRequired,
 };
