@@ -23,7 +23,7 @@ function Pagination({ totalPages, active, setPage }) {
   }
   return (
     <ul className="pagination">
-      <li className="page-item" key="next">
+      <li className="page-item" key="previous">
         <button type="button" onClick={() => setPage(Math.max(active - 1, 1))} className="page-link">
           <span aria-hidden="true">&laquo;</span>
           <span className="sr-only">Previous</span>
@@ -67,9 +67,6 @@ Pagination.propTypes = {
   setPage: PropTypes.func.isRequired,
 };
 Home.propTypes = {
-  totalPokemon: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    image: PropTypes.string,
-  })).isRequired,
+  totalPokemon: PropTypes.number.isRequired,
   queryPokemons: PropTypes.func.isRequired,
 };

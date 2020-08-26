@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './HomeComponent';
+import PokemonDetail from './PokemonDetailCompoment';
 
 const pokemonAPI = 'https://api.pokemontcg.io/v1/cards?subtype=Basic';
 
@@ -8,6 +10,9 @@ function extractPokemonData(pokemonData) {
     id: pokemonData.id,
     name: pokemonData.name,
     image: pokemonData.imageUrl,
+    types: pokemonData.types,
+    hp: pokemonData.hp,
+    attacks: pokemonData.attacks,
   });
 }
 export default class Main extends Component {
@@ -46,11 +51,30 @@ export default class Main extends Component {
 
   render() {
     const { pokemonList, isFetching, fetchingFailed } = this.state;
+    if (isFetching) {
+      return (<h1>Loading</h1>);
+    }
+    if (fetchingFailed) {
+      return (<h1>Fetching Failed</h1>);
+    }
+
+    const homeComponent = () => (
+      <Home totalPokemon={pokemonList.length} queryPokemons={this.queryPokemons} />
+    );
+    const pokemonDetailComponent = ({ match }) => {
+      const pokemonData = pokemonList.find((pokemon) => pokemon.id === match.params.pokemonId);
+
+      return (
+        <PokemonDetail pokemon={pokemonData} />
+      );
+    };
     return (
       <div className="container mt-3 p-3 border rounded">
-        {isFetching ? <h1>Loading</h1> : ''}
-        {fetchingFailed ? <h1>Fetching Failed</h1> : ''}
-        {!isFetching && !fetchingFailed ? <Home totalPokemon={pokemonList.length} queryPokemons={this.queryPokemons} /> : ''}
+        <Switch>
+          <Route exact path="/pokemon" component={homeComponent} />
+          <Route path="/pokemon/:pokemonId" component={pokemonDetailComponent} />
+          <Redirect to="/pokemon" />
+        </Switch>
       </div>
     );
   }
