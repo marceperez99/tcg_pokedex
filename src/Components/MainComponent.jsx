@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './HomeComponent';
 import PokemonDetail from './PokemonDetailCompoment';
 import Loading from './LoadingComponent';
+import ErrorLoading from './ErrorLoadingComponent';
 
 const pokemonAPI = 'https://api.pokemontcg.io/v1/cards?subtype=Basic';
 
@@ -76,7 +77,7 @@ export default class Main extends Component {
     if (isFetching) {
       contenido = <Loading />;
     } else if (fetchingFailed) {
-      contenido = <h1>Fetching Failed</h1>;
+      contenido = <ErrorLoading />;
     } else {
       const homeComponent = () => (
         <Home key="home" totalPokemon={filteredPokemon.length} filterPokemons={this.filterPokemons} queryPokemons={this.queryPokemons} />
