@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './HomeComponent';
 import PokemonDetail from './PokemonDetailCompoment';
+import Loading from './LoadingComponent';
 
 const pokemonAPI = 'https://api.pokemontcg.io/v1/cards?subtype=Basic';
 
@@ -21,7 +22,7 @@ export default class Main extends Component {
     this.state = {
       pokemonList: [],
       filteredPokemon: [],
-      isFetching: false,
+      isFetching: true,
       fetchingFailed: false,
     };
     this.queryPokemons = this.queryPokemons.bind(this);
@@ -40,10 +41,10 @@ export default class Main extends Component {
       .then((cards) => cards.filter((card) => !card.name.includes('Energy')))
       .then((pokemonList) => {
         this.setState({
-          fetchingFailed: false,
-          isFetching: false,
           pokemonList,
           filteredPokemon: pokemonList,
+          fetchingFailed: false,
+          isFetching: false,
         });
       })
       .catch(() => {
@@ -68,34 +69,33 @@ export default class Main extends Component {
   }
 
   render() {
+    let contenido;
     const {
       pokemonList, filteredPokemon, isFetching, fetchingFailed,
     } = this.state;
     if (isFetching) {
-      return (<h1>Loading</h1>);
-    }
-    if (fetchingFailed) {
-      return (<h1>Fetching Failed</h1>);
-    }
-
-    const homeComponent = () => (
-      <Home key="home" totalPokemon={filteredPokemon.length} filterPokemons={this.filterPokemons} queryPokemons={this.queryPokemons} />
-    );
-    const pokemonDetailComponent = ({ match }) => {
-      const pokemonData = pokemonList.find((pokemon) => pokemon.id === match.params.pokemonId);
-
-      return (
-        <PokemonDetail pokemon={pokemonData} />
+      contenido = <Loading />;
+    } else if (fetchingFailed) {
+      contenido = <h1>Fetching Failed</h1>;
+    } else {
+      const homeComponent = () => (
+        <Home key="home" totalPokemon={filteredPokemon.length} filterPokemons={this.filterPokemons} queryPokemons={this.queryPokemons} />
       );
-    };
-    return (
-      <div className="container mt-3 p-3 border rounded">
-
+      const pokemonDetailComponent = ({ match }) => {
+        const pokemonData = pokemonList.find((pokemon) => pokemon.id === match.params.pokemonId);
+        return <PokemonDetail key={pokemonData.id} pokemon={pokemonData} />;
+      };
+      contenido = (
         <Switch>
           <Route exact path="/pokemon" component={homeComponent} />
           <Route path="/pokemon/:pokemonId" component={pokemonDetailComponent} />
           <Redirect to="/pokemon" />
         </Switch>
+      );
+    }
+    return (
+      <div className="container mt-3 p-3 border rounded">
+        {contenido}
       </div>
     );
   }
