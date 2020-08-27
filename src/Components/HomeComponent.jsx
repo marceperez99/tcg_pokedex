@@ -70,7 +70,7 @@ const Home = ({ totalPokemon, queryPokemons, filterPokemons }) => {
 
   return (
     <div className="row">
-      <h3 className="col-12">Catalogo de Pokemons</h3>
+      <h3 className="col-12">Catalogo de Pokemon</h3>
       <hr className="col-10 mx-auto" />
       <div className="col-12">
 
@@ -80,7 +80,7 @@ const Home = ({ totalPokemon, queryPokemons, filterPokemons }) => {
         <Pagination totalPages={numPages} active={page} setPage={setPage} />
       </div>
 
-      {pokemonList.length ? pokemonList : <h2 className="col-12 text-center text-secondary">No hay pokemons que mostrar</h2>}
+      {pokemonList.length ? pokemonList : <h2 className="col-12 text-center text-secondary">No hay pokemon para mostrar</h2>}
     </div>
   );
 };

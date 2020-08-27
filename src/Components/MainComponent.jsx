@@ -113,7 +113,7 @@ class Main extends Component {
       );
       const pokemonDetailComponent = ({ match }) => {
         const pokemonData = pokemonList.find((pokemon) => pokemon.id === match.params.pokemonId);
-        return <PokemonDetail key={pokemonData.id} pokemon={pokemonData} />;
+        return <PokemonDetail key={pokemonData ? pokemonData.id : 'undefined'} pokemon={pokemonData} />;
       };
       contenido = (
         <Switch>

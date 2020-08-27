@@ -40,7 +40,10 @@ PokemonDetail.propTypes = {
     types: PropTypes.arrayOf(PropTypes.string),
 
     attacks: PropTypes.arrayOf(PropTypes.any),
-  }).isRequired,
+  }),
+};
+PokemonDetail.defaultProps = {
+  pokemon: undefined,
 };
 
 export default PokemonDetail;

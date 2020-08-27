@@ -39,7 +39,7 @@ class PokemonFilter extends Component {
     return (
       <div className="row my-3">
         <div className="col-4 lead text-right">
-          Buscador de Pokemons
+          Buscador de Pokemon
         </div>
         <div className="col-4">
 
