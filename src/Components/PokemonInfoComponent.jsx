@@ -15,7 +15,7 @@ const Attack = ({ attack }) => {
     </div>
   ));
   return (
-    <div className="card my-2" >
+    <div className="card my-2">
       <div className="card-body row">
         <h6 className="col-12">{attack.name}</h6>
         <hr className="col-10" />
@@ -38,7 +38,7 @@ const Attack = ({ attack }) => {
           )
           : ''}
       </div>
-    </div >
+    </div>
 
   );
 };

@@ -61,7 +61,7 @@ export default function Home({ totalPokemon, queryPokemons, filterPokemons }) {
         <Pagination totalPages={numPages} active={page} setPage={setPage} />
       </div>
 
-      {pokemonList}
+      {pokemonList.length ? pokemonList : <h2 className="col-12 text-center text-secondary">No hay pokemons que mostrar</h2>}
     </div>
   );
 }
