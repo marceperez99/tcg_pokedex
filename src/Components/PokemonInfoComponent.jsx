@@ -15,7 +15,7 @@ const Attack = ({ attack }) => {
     </div>
   ));
   return (
-    <div key={attack.name} className="card my-2">
+    <div className="card my-2" >
       <div className="card-body row">
         <h6 className="col-12">{attack.name}</h6>
         <hr className="col-10" />
@@ -38,12 +38,12 @@ const Attack = ({ attack }) => {
           )
           : ''}
       </div>
-    </div>
+    </div >
 
   );
 };
 const Type = ({ type }) => (
-  <h4 key={type}>
+  <h4>
     <span className="badge badge-pill badge-light border">
       <img src={pokemonTypes[type.toLowerCase()]} alt={type.toLowerCase()} />
       {`  ${type}`}
@@ -52,8 +52,8 @@ const Type = ({ type }) => (
 );
 
 const PokemonInfo = ({ pokemon }) => {
-  const types = pokemon.types.map((type) => <Type type={type} />);
-  const attacks = pokemon.attacks.map((attack) => <Attack attack={attack} />);
+  const types = pokemon.types.map((type) => <Type key={type} type={type} />);
+  const attacks = pokemon.attacks.map((attack) => <Attack key={attack.name} attack={attack} />);
   return (
     <>
       <div className="col-10 col-sm-4">
