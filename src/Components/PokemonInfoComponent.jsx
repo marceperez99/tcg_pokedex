@@ -1,7 +1,15 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import pokemonTypes from '../shared/pokemon_types_logos';
-
+/**
+ * Componente funcional que muestra un ataque de un pokemon.
+ * @param {Object} props - Propiedades del Componente.
+ * @param {Object} props.attack - Objeto con la informacion del ataque del pokemon.
+ * @param {string} props.attack.name - Nombre del ataque.
+ * @param {string[]} props.attack.name - Lista de energias necesarias para realizar el ataque.
+ * @param {string} props.attack.damage - Daño que ocasiona el ataque.
+ * @param {string} props.attack.text - Descripción del ataque.
+ */
 const Attack = ({ attack }) => {
   const elementCosts = {};
   attack.cost.forEach((element) => {
@@ -42,6 +50,11 @@ const Attack = ({ attack }) => {
 
   );
 };
+/**
+ * Componente funcional que muestra el tipo de un Pokemon.
+ * @param {Object} props - Propiedades del Componente.
+ *  @param {string} props.type - Tipo del pokemon.
+ */
 const Type = ({ type }) => (
   <h4>
     <span className="badge badge-pill badge-light border">
@@ -51,6 +64,11 @@ const Type = ({ type }) => (
   </h4>
 );
 
+/**
+ * Componente funcional que muestra las estadisticas de un pokemon en particular.
+ * @param {Object} props - Propiedades del Componente.
+ * @param {Object} props.pokemon - Objeto con la informacion del pokemon a mostrar
+ */
 const PokemonInfo = ({ pokemon }) => {
   const types = pokemon.types.map((type) => <Type key={type} type={type} />);
   const attacks = pokemon.attacks.map((attack) => <Attack key={attack.name} attack={attack} />);
@@ -74,6 +92,7 @@ const PokemonInfo = ({ pokemon }) => {
     </>
   );
 };
+
 Attack.propTypes = {
   attack: PropTypes.shape({
     name: PropTypes.string,
@@ -82,9 +101,11 @@ Attack.propTypes = {
     damage: PropTypes.string,
   }).isRequired,
 };
+
 Type.propTypes = {
   type: PropTypes.string.isRequired,
 };
+
 PokemonInfo.propTypes = {
   pokemon: PropTypes.shape({
     id: PropTypes.string,
